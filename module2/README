@@ -1,0 +1,18 @@
+不应该在公共模块或非application模块进行wrap，否则在业务wrap后可能会出现堆栈信息重复；
+dao遇到错误时考虑直接上抛,然后由具体业务进行wrap
+
+Dao层
+```go
+if err != nil{
+    return err
+}
+```
+
+
+applicaion
+```go
+err := Dao()
+if err != nil{
+    errors.Wrap(err, "dao error")
+}
+```
